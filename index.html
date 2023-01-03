@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <title>Calculator exercises</title>
+    
+    <style>
+        .row-container {
+            padding-left: 15%;
+            padding-right: 15%;
+        }
+        .button-custom {
+            width: 50px;
+            height: 50px;
+        }
+        .button-custom2 {
+            width: 110px;
+            height: 50px;
+        }
+        .width {
+            width: 260px; 
+        }
+        .width2 {
+            width: 120px; 
+        }
+        .width3 {
+            width: 280px;
+        }
+        
+        @media only screen and (max-width: 768px) {
+            .content {
+                padding-left: 0% !important;
+                padding-right: 0% !important;   
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row row-container mt-5 content d-flex justify-content-center">
+            <div class="col-12 border border-dark border-2 bg-info width3">
+                <small>Calculations:</small>
+                <h6 class="text-center" id="hl"></h6>
+            </div>
+        </div>
+        <div class="row row-container content">
+            <div class="col-12 d-flex justify-content-center">
+                <div class="p-2 border border-secondary width3 bg-info">
+                    <div>
+                        <input class="screen text-end pt-3 width mt-2 border-dark border-2 bg-warning" id="num" name="num" /> 
+                    </div>
+                    <div class="my-3">
+                        <button type="button" class="btn btn-light button-custom border" onclick="updateInput(1)">1</button>
+                        <button type="button" class="btn btn-light button-custom border mx-3" onclick="updateInput(2)">2</button>
+                        <button type="button" class="btn btn-light button-custom border me-3" onclick="updateInput(3)">3</button>
+                        <button type="button" class="btn btn-light button-custom border bg-success" onclick="updateOperation('+')">+</button>
+                    </div>
+                    <div class="my-3">
+                        <button type="button" class="btn btn-light button-custom border" onclick="updateInput(4)">4</button>
+                        <button type="button" class="btn btn-light button-custom border mx-3" onclick="updateInput(5)">5</button>
+                        <button type="button" class="btn btn-light button-custom border me-3" onclick="updateInput(6)">6</button>
+                        <button type="button" class="btn btn-light button-custom border bg-success" onclick="updateOperation('-')">-</button>
+                    </div>
+                    <div class="my-3">
+                        <button type="button" class="btn btn-light button-custom border" onclick="updateInput(7)">7</button>
+                        <button type="button" class="btn btn-light button-custom border mx-3" onclick="updateInput(8)">8</button>
+                        <button type="button" class="btn btn-light button-custom border me-3" onclick="updateInput(9)">9</button>
+                        <button type="button" class="btn btn-light button-custom border bg-success" onclick="updateOperation('*')">*</button>
+                    </div>
+                    <div class="my-3">
+                        <button type="button" class="btn btn-light button-custom border" onclick="updateInput(0)">0</button>
+                        <button type="button" class="btn btn-light button-custom border mx-3" onclick="updateM()">.</button>
+                        <button type="button" class="btn btn-light button-custom border me-3" onclick="updateOperation('%')">%</button>
+                        <button type="button" class="btn btn-light button-custom border bg-success" onclick="updateOperation('/')">/</button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-light button-custom2 border me-3 width2 bg-warning" onclick="updateClear()">C</button>
+                        <button type="button" class="btn btn-light button-custom2 border width2 bg-success" onclick="calculate()">=</button>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+
+    <script>
+        let digit11;
+        let operation;
+        let result2;
+        let digit22;
+        let highlight;
+
+        function updateInput(number) {
+            $('#num').val(parseFloat( $('#num').val() + number));  
+        }
+
+        function updateOperation(opp) {
+            digit11 = parseFloat($('#num').val());
+            operation = opp;
+            $('#num').val('');
+
+            highlight = digit11+' '+operation;
+            $('#hl').text(highlight);
+        }
+
+        function calculate() {
+            let numRef = $('#num');
+            digit22 = parseFloat(numRef.val());
+           
+            if (operation === '+') {
+                result = digit11 + digit22;
+            }
+            if (operation === '-') {
+                result = digit11 - digit22;
+            }
+            if (operation === '/') {
+                result = digit11 / digit22;
+            }
+            if (operation === '*') {
+                result = digit11 * digit22;
+            }
+            if (operation === '%') {
+               
+                result = digit22*digit11/100;
+            }
+            $('#num').val(result);
+            highlight = highlight+' '+digit22+' = '+result;         
+            $('#hl').text(highlight);    
+        }
+
+        function updateClear() {
+            $('#num').val('');
+        }
+
+        function updateM() { 
+            $('#num').val($('#num').val() + '.');
+        }
+
+        function debugCommon(inputId, updateValue) {
+            $(inputId).val(updateValue)
+        }
+        
+    </script>
+</body>
+</html>
+
